@@ -5,14 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "prod": "deploy.sh",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
+    "install": "^0.13.0",
     "jquery": "^3.6.0",
     "mitt": "^3.0.0",
     "sweetalert2": "^11.3.0",
+    "travis": "^0.1.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
