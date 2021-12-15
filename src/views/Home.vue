@@ -33,6 +33,10 @@ export default {
     }
   },
   mounted() {
+    localStorage.setItem('home', 1)
+    if(+localStorage.getItem('home') === 1 && !localStorage.getItem('at')) {
+      localStorage.setItem('at', false)
+    }
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -42,9 +46,17 @@ export default {
   beforeUnmount() {
     const to = this.$route.fullPath
     // const lastRoute = localStorage.getItem('lastRoute')
-    if((to === '/viaje/eeuu' || to === '/viaje/otros') && this.prevRoute.fullPath === '/' && !localStorage.getItem('at')) {
-      localStorage.setItem('lastRoute', '/viaje/eeuu')
+    const at = localStorage.getItem('at')
+    console.log(to)
+    if((to === '/viaje/eeuu' || to === '/viaje/otros') && this.prevRoute.fullPath === '/' && at === 'false') {
+      if(to === '/viaje/eeuu') {
+        localStorage.setItem('lastRoute', '/viaje/eeuu')
+      } else if(to === '/viaje/otros') {
+        localStorage.setItem('lastRoute', '/viaje/otros')
+      }
       this.$router.go(-1)
+    } else {
+      localStorage.removeItem('lastRoute')
     }
   },
   created: () => {

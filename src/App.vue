@@ -13,7 +13,7 @@ import './assets/main.css'
 export default {
   components: {
     Nav
-  }
+  },
 }
 </script>
 <style>

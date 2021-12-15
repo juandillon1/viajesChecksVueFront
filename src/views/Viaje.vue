@@ -41,13 +41,29 @@ import Swal from 'sweetalert2'
                 viajesSinFiltro: [],
                 tipos: [],
                 viajesLocal: '',
-                titulo: ''
+                titulo: '',
+                prevRoute: null
             }
         },
         mounted() {
             this.getViajes()
         },
         beforeRouteUpdate (to, from, next) {
+            // const lastRoute = localStorage.getItem('lastRoute')
+            let at = localStorage.getItem('at')
+            if((to.path === '/viaje/eeuu' || to.path === '/viaje/otros') && at === 'false') {
+                if(to.path === '/viaje/eeuu') {
+                    localStorage.setItem('home', 2)
+                    localStorage.setItem('lastRoute', '/viaje/eeuu')
+                    this.$router.replace('/')
+                } else if(to.path === '/viaje/otros') {
+                    localStorage.setItem('home', 2)
+                    localStorage.setItem('lastRoute', '/viaje/otros')
+                    this.$router.replace('/')                           
+                }
+            } else {
+                localStorage.removeItem('lastRoute')
+            }
             this.id = to.params.id
             this.viajesSinFiltro = []
             this.tipos = []
@@ -55,6 +71,7 @@ import Swal from 'sweetalert2'
             this.tipofiltered()
             next();
         },
+
         methods: {
             tipofiltered() {
                 this.viajesSinFiltro = this.viajesfiltered()
