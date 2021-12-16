@@ -54,6 +54,7 @@
             }
         },
         mounted() {
+            console.log(this.id)
         },
         methods: {
             async cargarData() {

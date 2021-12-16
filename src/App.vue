@@ -2,7 +2,7 @@ import Nav from '@/components/shared/Nav.vue';
 <template>
   <div id="wraper">
     <Nav />
-    <router-view/>
+    <router-view />
     <!-- BG -->
     <div id="bg"></div>
   </div>

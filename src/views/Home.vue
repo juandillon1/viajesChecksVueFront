@@ -21,6 +21,7 @@
 
 <script>
 import Modal from '../components/Modal.vue'
+import {getApi} from '@/helpers/getApi'
 // @ is an alias to /src
 
 export default {
@@ -32,7 +33,8 @@ export default {
       prevRoute: null
     }
   },
-  mounted() {
+  async mounted() {
+    await getApi()
     localStorage.setItem('home', 1)
     if(+localStorage.getItem('home') === 1 && !localStorage.getItem('at')) {
       localStorage.setItem('at', false)
@@ -47,7 +49,6 @@ export default {
     const to = this.$route.fullPath
     // const lastRoute = localStorage.getItem('lastRoute')
     const at = localStorage.getItem('at')
-    console.log(to)
     if((to === '/viaje/eeuu' || to === '/viaje/otros') && this.prevRoute.fullPath === '/' && at === 'false') {
       if(to === '/viaje/eeuu') {
         localStorage.setItem('lastRoute', '/viaje/eeuu')

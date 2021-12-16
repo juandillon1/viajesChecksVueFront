@@ -40,6 +40,7 @@
 <script>
     import {updateApi} from '@/helpers/updateApi'
     import Swal from 'sweetalert2'
+    import {getApiUpdate} from '@/helpers/getApi'
     export default {
         name: 'Actualizar',
         data(){
@@ -55,18 +56,9 @@
                 viaje: {},
             }
         },
-        mounted() {
-            const viajes = JSON.parse(localStorage.getItem('viajes'))
-            // let viajeFiltered = []
-            let viajesSF = []
-            let viajeCF = []
-            viajes.forEach(viaje => {
-                viajesSF.push(viaje.viaje)
-            });
-            viajesSF.forEach((viaje) => {
-                viajeCF.push(viaje[0])
-            });
-            this.viaje = viajeCF.find(el => el._id === this.id)
+        async mounted() {
+            const {viaje} = await getApiUpdate(this.id)
+            this.viaje = viaje[0]
             this.setValues()
         },
         methods: {
