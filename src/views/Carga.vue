@@ -9,11 +9,15 @@
                 </div>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form4Example1">Tipo</label>
-                    <select class="form-select" aria-label="seleccionar" v-model="tipo" v-on:click="changeArea">
+                    <select class="form-select" aria-label="seleccionar" v-model="tipo" v-on:click.prevent="changeArea">
                         <option selected>Selecciona una opción</option>
-                        <option value="excursión">Excursión</option>
-                        <option value="Imperdible">Imperdible</option>
+                        <option :value="tipo" v-for="tipo in tipos" :key="tipo">{{tipo}}</option>
+                        <option value="add">Agregue una opción...</option>
                     </select>
+                    <form v-show="showAddOption" v-on:submit.prevent="addOption">
+                        <input type="text" id="form4Example1" v-model="newOption" class="form-control mt-3" placeholder="Ingresá acá el nuevo tipo..." autocomplete="off">
+                        <button type="submit" class="btn btn-info btn-block mt-3" style="background-color: 'transparent' !important">Cargar</button>
+                    </form>
                 </div>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form4Example1">Precio</label>
@@ -39,6 +43,7 @@
 
 <script>
     import {postApi} from '@/helpers/postApi'
+import { getApiTypes } from '@/helpers/getApi';
     import Swal from 'sweetalert2'
     export default {
         name: 'Carga',
@@ -50,11 +55,15 @@
                 tipo: '',
                 precio: 0,
                 url: '',
-                img: ''
+                img: '',
+                tipos: [],
+                newOption: '',
+                showAddOption: false,
             }
         },
-        mounted() {
-            console.log(this.id)
+        async mounted() {
+            const {tipos} = await getApiTypes(this.id)
+            this.tipos = tipos
         },
         methods: {
             async cargarData() {
@@ -106,6 +115,17 @@
             changeArea(event) {
                 const el = event.target
                 el.setAttribute('style', 'background-color: transparent')
+                if (el.value === 'add') {
+                    this.showAddOption = true
+                } else {
+                    this.showAddOption = false
+                }
+            },
+            addOption() {
+                this.tipos.push(this.newOption)
+                this.tipo = this.newOption
+                this.newOption = ''
+                this.showAddOption = false
             }
         }
     }
