@@ -2,7 +2,7 @@
     <div align="center">
         <div  v-for="tipo in tipos" :key="tipo">
             <h1>{{tipo}}</h1>
-            <div class="row row-cols-1 row-cols-md-3 g-4 container">
+            <div class="row row-cols-1 row-cols-md-3 container">
                 <ViajeCard :tipo="tipo" :idViaje="id" :getViajes="getViajes"/>
             </div>
         </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {getApiTypes} from '@/helpers/getApi'
+import { getApiTypes } from '@/helpers/getApi';
 import ViajeCard from '../components/ViajeCard.vue'
 // import CardsGrid from '../components/CardsGrid.vue'
     export default {

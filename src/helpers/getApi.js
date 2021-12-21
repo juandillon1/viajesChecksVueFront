@@ -15,6 +15,13 @@ export const getApiTypes = async(idViaje) => {
     const data = await resp.json()
     return data
 }
+export const getApiSubTypes = async(idViaje, tipo) => {
+    const {URL_API} = URL_GLOBAL;
+    const URL = `${URL_API}/subtipo/${idViaje}/${tipo}`;
+    const resp = await fetch(URL)
+    const data = await resp.json()
+    return data
+}
 
 export const getApiFiltered = async(idViaje, tipo) => {
     const {URL_API} = URL_GLOBAL;
