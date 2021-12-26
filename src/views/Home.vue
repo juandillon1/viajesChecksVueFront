@@ -1,5 +1,5 @@
 <template>
-  <div id="header" v-if="!showTravel">
+  <div id="header" v-if="!showTravel" class="animate__animated animate__zoomIn">
       <div class="logo">
           <span class="icon fa fa-map"></span>
       </div>

@@ -1,6 +1,6 @@
 <template>
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal animate__animated animate__fadeIn">
 
   <!-- Modal content -->
   <div class="modal-content">

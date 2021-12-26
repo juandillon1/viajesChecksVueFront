@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container animate__animated animate__fadeIn">
         <div align="center">
             <h1>Carga Info Viajes {{id}}</h1>
             <form v-on:submit.prevent="cargarData">

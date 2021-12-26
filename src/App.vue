@@ -20,4 +20,7 @@ export default {
   #bg {
     z-index: -1 !important;
   }
+  .animate__fadeIn {
+    animation-duration: 2s;
+  }
 </style>
