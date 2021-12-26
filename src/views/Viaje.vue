@@ -1,5 +1,7 @@
 <template>
     <div align="center">
+        <h1 v-if="id === 'eeuu'">Faltan: {{Math.trunc((new Date('2022-03-30').getTime() - new Date().getTime())/(1000*60*60*24))}} días 🏄</h1>
+        <h1 v-if="id === 'brc'">Faltan: {{Math.trunc((new Date('2022-01-15').getTime() - new Date().getTime())/(1000*60*60*24))}} días 🏂</h1>
         <div  v-for="tipo in tipos" :key="tipo">
             <h1>{{tipo}}</h1>
             <div class="row row-cols-1 row-cols-md-3 container">
