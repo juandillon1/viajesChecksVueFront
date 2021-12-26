@@ -114,5 +114,11 @@ import Loader from '../components/Loader.vue';
 .deletebutton:hover {
     background: rgba(248, 46, 46, 0.609);
 }
+@media screen and (max-width: 480px) {
+    .deletebutton {
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+}
 </style>
 

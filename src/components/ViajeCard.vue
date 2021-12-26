@@ -81,12 +81,4 @@ import Loader from './Loader.vue'
         font-size: 18px;
         padding: 0.6rem;
     }
-    .Loader {
-        margin-left: 35%;
-    }
-    @media screen and (max-width: 480px) {
-		.Loader {
-            margin-left: 10%;
-        }
-	}
 </style>

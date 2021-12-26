@@ -23,4 +23,12 @@ export default {
   .animate__fadeIn {
     animation-duration: 2s;
   }
+  .Loader {
+    margin-left: 35%;
+  }
+  @media screen and (max-width: 480px) {
+  .Loader {
+          margin-left: 10%;
+      }
+  }
 </style>
