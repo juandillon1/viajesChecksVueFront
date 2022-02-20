@@ -38,7 +38,7 @@
         },
         mounted() {
             if(this.lastRoute) {
-                this.mostrarModal = true
+                this.mostrarModal = false // FUERZO QUE NO SE MUESTRE, ESTO DEBERIA SER TRUE
             }
             var modal = document.getElementById("myModal");
             // Get the <span> element that closes the modal

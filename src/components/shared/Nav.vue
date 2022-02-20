@@ -1,8 +1,7 @@
 <template>
     <nav align="center">
         <ul>
-            <li><router-link to="/" class="travelLink" :key="$route.fullPath">Home</router-link></li>
-            <li><router-link to="/viaje/brc" class="travelLink" :key="$route.fullPath">Bariloche</router-link></li>
+            <li><router-link to="/" class="travelLink" :key="$route.fullPath">Inicio</router-link></li>
             <li><router-link to="/viaje/eeuu" class="travelLink" :key="$route.fullPath">Estados Unidos</router-link></li>
             <li><router-link to="/viaje/otros" class="travelLink" :key="$route.fullPath">Otros...</router-link></li>
             

@@ -1,40 +1,48 @@
 <template>
     <div align="center" class="animate__animated animate__fadeIn">
         <div v-if="!cargando">
-            <h1 v-if="id === 'eeuu'">Faltan: {{Math.trunc((new Date('2022-03-30').getTime() - new Date().getTime())/(1000*60*60*24))}} días 🏄</h1>
-            <h1 v-if="id === 'brc'">Faltan: {{Math.trunc((new Date('2022-01-15').getTime() - new Date().getTime())/(1000*60*60*24))}} días 🏂</h1>
-            <div class="filtrartipo">
-                <h5>Filtrar por tipo</h5>
-                <button class="tiposbutton" v-for="tipo in tipos" :key="tipo" @click="filtrarTipo(tipo)">{{capitalize(tipo)}}</button>
-                <button class="tiposbutton deletebutton" @click="filtrarTipo('todos')" title="Borrar Filtros">🗑</button>
-                
+            <h1 v-if="id === 'eeuu'">Faltan: {{Math.trunc((new Date('2022-03-30').getTime() - new Date().getTime())/(1000*60*60*24))}} días para U.S.A 🏄</h1>
+            <div>
+                <button class="m-5">
+                    <router-link :to="'/carga/' + id" class="travelLink" :key="$route.fullPath">Cargar Lugares Nuevos</router-link>
+                </button>
             </div>
-            <div v-if="tipoFiltered === ''">
+            <div class="filtrartipo">
+                <h5>Filtrar por Lugar</h5>
+                <button class="tiposbutton" v-for="subtipo in subtipos" :key="subtipo" @click="filtrarSubTipo(subtipo)">{{capitalize(subtipo)}}</button>
+                <button class="tiposbutton deletebutton" @click="filtrarSubTipo('todos')" title="Borrar Filtros">🗑</button>
+            </div>
+            <div v-if="tipoFiltered === '' && subtipoFilter === ''">
                 <div  v-for="tipo in tipos" :key="tipo">
                     <h1>{{tipo}}</h1>
                     <div class="row row-cols-1 row-cols-md-3 container">
-                        <ViajeCard :tipo="tipo" :idViaje="id" :getViajes="getViajes"/>
+                        <ViajeCard :tipo="tipo" :subtipoFilter="''" :idViaje="id" :getViajes="getViajes"/>
                     </div>
                 </div>
             </div>
-            <div v-if="tipoFiltered !== ''">
-                <h1>{{tipoFiltered}}</h1>
-                <div  v-for="tipo in tipos" :key="tipo">
+            <div v-if="tipoFiltered !== '' && subtipoFilter === ''">
+                <!-- <div  v-for="tipo in tipos" :key="tipo"> -->
+                    <h1>{{tipoFiltered}} ASD</h1>
                     <div class="row row-cols-1 row-cols-md-3 container">
-                        <ViajeCard :tipo="tipoFiltered" :idViaje="id" :getViajes="getViajes" v-if="tipo === tipoFiltered"/>
+                        <ViajeCard :tipo="tipoFiltered" :subtipoFilter="''" :idViaje="id" :getViajes="getViajes"/>
+                    </div>
+                <!-- </div> -->
+            </div>
+            <div v-if="subtipoFilter !== '' && tipoFiltered === ''">
+                <h1>{{subtipoFilter}}</h1>
+                <div  v-for="subtipo in subtipos" :key="subtipo">
+                    <div class="row row-cols-1 row-cols-md-3 container">
+                        <ViajeCard :subtipoFilter="subtipoFilter" :idViaje="id" :getViajes="getViajes" v-if="subtipo === subtipoFilter"/>
                     </div>
                 </div>
             </div>
-            <button class="m-5">
-                <router-link :to="'/carga/' + id" class="travelLink" :key="$route.fullPath">Cargar Imperdibles/Excursiones</router-link>
-            </button>
         </div>
         <Loader class="Loader animate__animated animate__fadeIn" v-if="cargando"/>
     </div>
 </template>
 
 <script>
-import { getApiTypes } from '@/helpers/getApi';
+import { getApiTypes, getApiSubTypes } from '@/helpers/getApi';
 import ViajeCard from '../components/ViajeCard.vue'
 import Loader from '../components/Loader.vue';
 // import CardsGrid from '../components/CardsGrid.vue'
@@ -47,8 +55,10 @@ import Loader from '../components/Loader.vue';
                 id: this.$route.params.id,
                 viajes: [],
                 tipos: [],
+                subtipos: [],
                 prevRoute: null,
                 tipoFiltered: '',
+                subtipoFilter: '',
                 cargando: false,
             }
         },
@@ -74,7 +84,9 @@ import Loader from '../components/Loader.vue';
             this.id = to.params.id
             this.viajes = []
             this.tipos = []
+            this.subtipos = []
             this.tipoFiltered = ''
+            this.subtipoFilter = ''
             this.getViajes()
             next();
         },
@@ -83,6 +95,8 @@ import Loader from '../components/Loader.vue';
                 this.cargando = true
                 const {tipos} = await getApiTypes(this.id)
                 this.tipos = tipos
+                const {subtipos} = await getApiSubTypes(this.id)
+                this.subtipos = subtipos
                 this.cargando = false
             },
             filtrarTipo(tipo) {
@@ -90,11 +104,20 @@ import Loader from '../components/Loader.vue';
                     this.tipoFiltered = ''
                     return
                 }
+                this.subtipoFilter = ''
                 this.tipoFiltered = tipo
             },
+            filtrarSubTipo(subtipo) {
+                if(subtipo === 'todos') {
+                    this.subtipoFilter = ''
+                    return
+                }
+                this.tipoFiltered = ''
+                this.subtipoFilter = subtipo
+            },
             capitalize(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1);
-            }
+                return string.charAt(0).toUpperCase() + string.slice(1)
+            },
         },
     }
 </script>
@@ -114,10 +137,18 @@ import Loader from '../components/Loader.vue';
 .deletebutton:hover {
     background: rgba(248, 46, 46, 0.609);
 }
+.buscarinfo {
+    margin: 0;
+    width: 290px;
+}
 @media screen and (max-width: 480px) {
     .deletebutton {
       margin-top: 10px;
-      margin-left: 10px;
+      margin-right: 0px;
+    }
+    .buscarinfo {
+        margin: 0;
+        width: 180px;
     }
 }
 </style>

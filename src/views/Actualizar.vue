@@ -4,13 +4,13 @@
             <h1>Info Viaje {{idViaje}} | {{titulo}}</h1>
             <form v-on:submit.prevent="updateData">
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example1">Titulo</label>
-                    <input type="text" id="form4Example1" v-model="titulo" class="form-control" autocomplete="off"/>
+                    <label class="form-label" for="form4Example1">Lugar</label>
+                    <input type="text" id="form4Example1" v-model="titulo" class="form-control" autocomplete="off" placeholder="Por ej: Lego Land"/>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example1">Tipo</label>
+                    <label class="form-label" for="form4Example1">¿Que tipo de lugar es este?</label>
                     <select class="form-select" aria-label="seleccionar" v-model="tipo" v-on:click="changeArea($event, 'tipo')">
-                        <option selected>Selecciona una opción</option>
+                        <option value="" disabled selected>Por ej: Imperdible, recomendable, olvidable, etc...</option>
                         <option :value="tipo" v-for="tipo in tipos" :key="tipo">{{tipo}}</option>
                         <option value="add">Agregue una opción...</option>
                     </select>
@@ -20,9 +20,9 @@
                     </form>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example1">Sub Tipo</label>
+                    <label class="form-label" for="form4Example1">¿Este lugar a dónde pertenece?</label>
                     <select class="form-select" aria-label="seleccionar" v-model="subtipo" v-on:click.prevent="changeArea($event,'subtipo')">
-                        <option selected>Selecciona una opción</option>
+                        <option value="" disabled selected>Por ej: Disney, New York, Miami, etc...</option>
                         <option :value="subtip" v-for="subtip in subtipos" :key="subtip">{{subtip}}</option>
                         <option value="add">Agregue una opción...</option>
                     </select>
@@ -32,20 +32,20 @@
                     </form>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example1">Precio</label>
+                    <label class="form-label" for="form4Example1">¿Precio que se gasta en el lugar?</label>
                     <input type="number" id="form4Example1" v-model="precio" class="form-control" />
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example1">Link</label>
-                    <input type="text" id="form4Example1" v-model="url" class="form-control" autocomplete="off" />
+                    <label class="form-label" for="form4Example1">¿Tenés un link de la página del lugar?</label>
+                    <input type="text" id="form4Example1" v-model="url" class="form-control" autocomplete="off" placeholder="Por ej: https://disneyworld.disney.go.com/es-ar/"/>
                 </div>
                 <div class="form-outline mb-4">
-                    <label for="formFile" class="form-label">Imagen</label>
-                    <input type="text" id="form4Example1" v-model="img" class="form-control" autocomplete="off" />
+                    <label for="formFile" class="form-label">¿Hay alguna Imagen de referencia?</label>
+                    <input type="text" id="form4Example1" v-model="img" class="form-control" autocomplete="off" placeholder="Por ejemplo pegar una url: https://imagendeinternet.com/imagen.jpg"/>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form4Example3">Descripción</label>
-                    <textarea class="form-control" id="form4Example3" rows="4" v-model="descripcion" v-on:click="changeArea" autocomplete="off" ></textarea>
+                    <label class="form-label" for="form4Example3">¿Podrías decir que se puede hacer en el lugar?</label>
+                    <textarea class="form-control" id="form4Example3" rows="4" v-model="descripcion" v-on:click="changeArea" autocomplete="off" placeholder="Por ej: En este lugar se puede comprar ropa barata"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mb-4">Guardar</button>
             </form>

@@ -10,7 +10,6 @@
       </div>
       <div id="menuViajes">
           <ul>
-              <li><router-link to="/viaje/brc" class="travelLink" :key="$route.fullPath">Bariloche</router-link></li>
               <li><router-link to="/viaje/eeuu" class="travelLink" :key="$route.fullPath">Estados Unidos</router-link></li>
               <li><router-link to="/viaje/otros" class="travelLink" :key="$route.fullPath">Otros...</router-link></li>
           </ul>
@@ -36,9 +35,9 @@ export default {
   async mounted() {
     await getApi()
     localStorage.setItem('home', 1)
-    if(+localStorage.getItem('home') === 1 && !localStorage.getItem('at')) {
+    /* if(+localStorage.getItem('home') === 1 && !localStorage.getItem('at')) {
       localStorage.setItem('at', false)
-    }
+    } */
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
